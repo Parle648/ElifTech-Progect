@@ -27,6 +27,9 @@ const CatalogWidget = () => {
         }}>
             <SortFromFeature />
             <TypeFilters />
+            {/* {products.map((item: any) => {
+                return (<h2>hello</h2>)
+            })} */}
         </CatalogContext.Provider>
     );
 };

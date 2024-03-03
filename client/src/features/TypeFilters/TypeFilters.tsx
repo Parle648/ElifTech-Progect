@@ -23,7 +23,7 @@ const TypeFilters = () => {
                 ["types"]: event.target.checked ? prev?.types.concat(value) : prev?.types.filter((item: string) => item !== value)
             })
         });
-        getProducts(newFilters)
+        getProducts(newFilters).then((data: any) => catalogData?.setProducts(JSON.parse(data.products)))
     }
     
     return (

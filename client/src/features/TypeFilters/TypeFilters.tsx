@@ -25,31 +25,34 @@ const TypeFilters = () => {
         });
         getProducts(newFilters).then((data: any) => catalogData?.setProducts(JSON.parse(data.products)))
     }
+
+    console.log(catalogData?.filters.types.some(item => item === 'bad'));
+    
     
     return (
         <div className='type-filter-block'>
             <label className='label'>
-                <input onChange={changeFilters} type="checkbox" name='type' value='bad'  />
+                <input onChange={changeFilters} type="checkbox" checked={catalogData?.filters.types.some(item => item === 'bad')} name='type' value='bad'  />
                 <div className="fake-checkbox"></div>
                 <h2 className='checkbox-title'>Бад</h2>
             </label>
             <label className='label'>
-                <input onChange={changeFilters} type="checkbox" name='type' value='diet' />
+                <input onChange={changeFilters} type="checkbox" checked={catalogData?.filters.types.some(item => item === 'diet')} name='type' value='diet' />
                 <div className="fake-checkbox"></div>
                 <h2 className='checkbox-title'>Дiетичнi добавки</h2>
             </label>
             <label className='label'>
-                <input onChange={changeFilters} type="checkbox" name='type' value='mazi' />
+                <input onChange={changeFilters} type="checkbox" checked={catalogData?.filters.types.some(item => item === 'mazi')} name='type' value='mazi' />
                 <div className="fake-checkbox"></div>
                 <h2 className='checkbox-title'>Мазi</h2>
             </label>
             <label className='label'>
-                <input onChange={changeFilters} type="checkbox" name='type' value='drugs' />
+                <input onChange={changeFilters} type="checkbox" checked={catalogData?.filters.types.some(item => item === 'drugs')} name='type' value='drugs' />
                 <div className="fake-checkbox"></div>
                 <h2 className='checkbox-title'>Пiгулки</h2>
             </label>
             <label className='label'>
-                <input onChange={changeFilters} type="checkbox" name='type' value='vitamines' />
+                <input onChange={changeFilters} type="checkbox" checked={catalogData?.filters.types.some(item => item === 'vitamines')} name='type' value='vitamines' />
                 <div className="fake-checkbox"></div>
                 <h2 className='checkbox-title'>Вiтамiни</h2>
             </label>

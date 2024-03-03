@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 const Header = () => {
     return (
         <header className='header'>
-            <ul>
-                <li><Link to='/'>catalog</Link></li>
-                <li><Link to='/order-page'>order</Link></li>
-                <li><Link to='/orders'>orders</Link></li>
-                <li><Link to='/coupones'>coupones</Link></li>
+            <ul className='header-list'>
+                <li><Link className='navigation-link' to='/'>catalog</Link></li>
+                <li><Link className='navigation-link' to='/order-page'>order</Link></li>
+                <li><Link className='navigation-link' to='/orders'>orders</Link></li>
+                <li><Link className='navigation-link' to='/coupones'>coupones</Link></li>
             </ul>
         </header>
     );

@@ -1,0 +1,15 @@
+.header-list {
+    width: 1100px;
+    padding: 32px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    list-style-type: none;
+}
+
+.navigation-link {
+    color: blue;
+    text-decoration: none;
+}

@@ -23,20 +23,7 @@ const SortFromFeature = () => {
 
         getProducts(newFilters).then((data: any) => contextData?.setProducts(JSON.parse(data.products)))
 
-        setSortBy((prev: string[]) => {
-            switch (number) {
-                case 1:
-                    return [prev[0] = body, prev[1] = header, prev[2], prev[3], prev[4]]
-                case 2:
-                    return [prev[0] = body, prev[1], prev[2] = header, prev[3], prev[4]]
-                case 3:
-                    return [prev[0] = body, prev[1], prev[2], prev[3] = header, prev[4]]
-                case 4:
-                    return [prev[0] = body, prev[1], prev[2], prev[3], prev[4] = header]
-                default:
-                    return [...prev]
-            }
-        })
+        setSortBy((prev: string[]) => [...prev, prev[0] = body, prev[+number] = header])
     }
 
     function bodyToggle(event: React.MouseEvent<HTMLButtonElement>) {

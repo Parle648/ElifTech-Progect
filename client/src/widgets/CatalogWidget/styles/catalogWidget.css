@@ -1,0 +1,11 @@
+.catalog-main {
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.products-block {
+    height: 400px;
+    overflow: scroll;
+}

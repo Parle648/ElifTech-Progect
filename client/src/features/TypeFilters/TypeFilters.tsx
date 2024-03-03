@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './styles/typeFilters.css'
+import { CatalogContext } from '../../widgets/CatalogWidget/model/context/catalogContext';
+import getAllProducts from '../../shared/api/getAllProducts';
+import getByFilters from '../../shared/api/getByFilters';
 
 const TypeFilters = () => {
+    const catalogData = useContext(CatalogContext);
+
+    // getAllProducts().then((data: any) => console.log(data))
+    // getByFilters('sortby=from-new&types=["bad", "mazi"]&prefered=[3, 14]').then(data => console.log(data))
+    
     return (
         <div className='type-filter-block'>
             <label className='label'>

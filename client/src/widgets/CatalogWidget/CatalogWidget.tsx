@@ -8,10 +8,10 @@ const CatalogWidget = () => {
     const [products, setProducts] = useState<[]>([]);
 
     const [filters, setFilters] = useLocalStorage({
-        sortBy: '',
+        sortBy: "nothing",
         types: [],
         prefered: []
-    }, 'filters');
+    }, 'drugs-filters');
 
     function initProducts(event: any) {
         console.log(event.target);

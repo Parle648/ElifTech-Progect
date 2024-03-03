@@ -41,6 +41,62 @@ app.get('/', async (req, res) => {
   res.status(200).json({ result: 'all ok' });
 });
 
+app.get('/api/all-products', async (req, res) => {
+  try {
+    const result = await (await pool.query(`SELECT * FROM medicine_drugs`)).rows
+    return res.status(200).json({ products: JSON.stringify(result) });
+  } catch (error) {
+    return res.status(500).json({ result: `${error}` });
+  }
+});
+
+app.get('/api/all-coupones', async (req, res) => {
+  try {
+    const result = await (await pool.query(`SELECT * FROM medicine_coupones`)).rows
+    return res.status(200).json({ products: JSON.stringify(result) });
+  } catch (error) {
+    return res.status(500).json({ result: `${error}` });
+  }
+});
+
+app.get('/api/get-specific-coupone/:coupone', async (req, res) => {
+  try {
+    const {coupone} = req.params;
+    const result = await (await pool.query(`SELECT * FROM medicine_coupones WHERE coupon='${coupone.slice(1)}'`)).rows
+    return res.status(200).json({ products: JSON.stringify(result.length > 0 ? result : false) });
+  } catch (error) {
+    return res.status(500).json({ result: `${error}` });
+  }
+});
+
+app.get('/api/get-by-filters/', async (req, res) => {
+  try {
+    const {prefered, sortby, types,} = req.query;
+
+    const typesString = types.length > 0 ? `(${JSON.parse(types).map(str => `'${str}'`).join(', ')})` : "('bad', 'diet', 'drugs', 'mazi', 'vitamines')"
+
+    const result = await (await pool.query(`
+    SELECT * FROM medicine_drugs
+    JOIN medicine_drugs_types ON medicine_drugs.id = medicine_drugs_types.drugs_id
+    WHERE medicine_drugs_types.type IN ${typesString}`)).rows
+    .sort((a, b) => {
+      if (sortby === 'from-cheep') {
+        return a.cost - b.cost
+      } else if (sortby === 'from-expensive') {
+        return b.cost - a.cost
+      } else if (sortby === 'from-old') {
+        return a.creation_date - b.creation_date
+      } else if (sortby === 'from-new') {
+        return b.creation_date - a.creation_date
+      }
+    })
+
+    return res.status(200).json({ products: JSON.stringify(result.length > 0 ? result : false) });
+  } catch (error) {
+    return res.status(500).json({ result: `${error}` });
+  }
+});
+
 app.get('/api/getproducts/filters/', async (req, res) => {
   try {
     const {filters, currentPage} = req.query;

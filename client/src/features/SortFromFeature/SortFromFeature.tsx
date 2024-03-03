@@ -17,7 +17,7 @@ const SortFromFeature = () => {
 
         const newFilters = {
             ...catalogData?.filters,
-            ["sortBy"]: event.currentTarget.dataset.name
+            ["sortBy"]: event.currentTarget.innerText === 'нiчого не обрано' ? 'nothing' : event.currentTarget.dataset.name
         };
         catalogData?.setFilters((prev: any) => newFilters);
 

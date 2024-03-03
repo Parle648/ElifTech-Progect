@@ -1,0 +1,43 @@
+.type-filter-block {
+    width: 250px;
+    padding: 12px;
+    background-color: #CCC;
+    border: 1px solid #101010;
+    border-radius: 10px;
+}
+
+.label {
+    width: 250px;
+    display: flex;
+    align-items: center;
+}
+
+input {
+    display: none;
+}
+
+.fake-checkbox {
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    margin-right: 12px;
+    border: 1px solid #CCC;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input:checked + .fake-checkbox::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: rgb(253, 221, 178);
+}
+
+.checkbox-title {
+    font-size: 16px;
+    color: #101010;
+}

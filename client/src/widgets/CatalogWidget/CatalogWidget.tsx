@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CatalogContext } from './model/context/catalogContext';
 import { useLocalStorage } from '../../shared/lib/hooks/useLocalStorage';
 import SortFromFeature from '../../features/SortFromFeature/SortFromFeature';
+import TypeFilters from '../../features/TypeFilters/TypeFilters';
 
 const CatalogWidget = () => {
     const [products, setProducts] = useState<[]>([]);
@@ -25,6 +26,7 @@ const CatalogWidget = () => {
             initProduct: initProducts,
         }}>
             <SortFromFeature />
+            <TypeFilters />
         </CatalogContext.Provider>
     );
 };

@@ -71,9 +71,11 @@ app.get('/api/get-specific-coupone/:coupone', async (req, res) => {
 
 app.get('/api/get-by-filters/', async (req, res) => {
   try {
-    const {prefered, sortby, types,} = req.query;
+    const {prefered, sortby, types} = req.query;
 
-    const typesString = types.length > 0 ? `(${JSON.parse(types).map(str => `'${str}'`).join(', ')})` : "('bad', 'diet', 'drugs', 'mazi', 'vitamines')"
+    const typesString = JSON.parse(types).length > 0 ? `(${JSON.parse(types).map(str => `'${str}'`).join(', ')})` : "('bad', 'diet', 'drugs', 'mazi', 'vitamines')"
+
+    console.log(typesString);
 
     const result = await (await pool.query(`
     SELECT * FROM medicine_drugs

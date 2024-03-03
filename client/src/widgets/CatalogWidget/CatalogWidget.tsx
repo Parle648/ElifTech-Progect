@@ -27,9 +27,14 @@ const CatalogWidget = () => {
         }}>
             <SortFromFeature />
             <TypeFilters />
-            {/* {products.map((item: any) => {
-                return (<h2>hello</h2>)
-            })} */}
+            {products.map((item: any) => {
+                return (
+                    <div key={item.id} className="">
+                        <h2>{item.title}</h2>
+                        <h2>{item.cost}</h2>
+                    </div>
+                )
+            })}
         </CatalogContext.Provider>
     );
 };

@@ -6,6 +6,7 @@ import TypeFilters from '../../features/TypeFilters/TypeFilters';
 import './styles/catalogWidget.css'
 import getAllProducts from '../../shared/api/getAllProducts';
 import ProductCart from '../../entities/ProductCart/ProductCart';
+import AddToOrderBtn from '../../features/AddToOrderBtn/AddToOrderBtn';
 
 const CatalogWidget = () => {
     const [products, setProducts] = useLocalStorage([], 'products');
@@ -49,7 +50,7 @@ const CatalogWidget = () => {
                                 img={item.photo}
                                 closeComponent 
                                 preferBtn
-                                secondaryBlock
+                                secondaryBlock={<AddToOrderBtn id={item.id}/>}
                             />
                         )
                     })}

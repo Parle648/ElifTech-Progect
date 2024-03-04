@@ -1,0 +1,10 @@
+.order-btn {
+    padding: 12px;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.added {
+    background-color: aqua;
+}

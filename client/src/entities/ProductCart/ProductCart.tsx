@@ -40,6 +40,7 @@ const ProductCart = ({
                     {description}
                 </p>
                 <h3 className='product-cart-cost'>{cost} ₴</h3>
+                {secondaryBlock}
             </div>
         </div>
     );

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './styles/orderForm.css';
 import { useForm } from 'react-hook-form';
 import sendOrder from './api/sendOrder';
 import { useLocalStorage } from '../../shared/lib/hooks/useLocalStorage';
+import Spinner from '../../shared/UI/Spinner/Spinner';
 
 const OrderForm = () => {
     const { 
@@ -17,7 +18,10 @@ const OrderForm = () => {
     const [order, setOrder] = useLocalStorage([], 'ordered')
     const [orderCost, setOrderCost] = useLocalStorage([], 'orderCost')
 
+    const [disabled, setDisabled] = useState<boolean>(true)
+
       function submitData(data: any) {
+        setDisabled(false)
         sendOrder({
             ...data,
             ["products"]: JSON.stringify(localStorage.ordered),
@@ -27,14 +31,19 @@ const OrderForm = () => {
                 setOrder([])
                 setOrderCost(0)
                 reset();
+                setDisabled(true)
                 alert('Ваше замовлення успiшно прийнято');
                 window.location.href = 'http://localhost:3000/'
+            } else {
+                setDisabled(true)
+                alert('Напевно щось пышло не так(');
             }
         })
       }
 
     return (
         <form className='order-form' onSubmit={handleSubmit(submitData)}>
+            <Spinner disabled={disabled} />
             <input className='order-form-input' 
             {...register("name", {
                 required: 'Enter your name',

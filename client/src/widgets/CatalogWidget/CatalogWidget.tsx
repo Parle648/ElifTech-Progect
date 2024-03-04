@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { CatalogContext } from './model/context/catalogContext';
 import { useLocalStorage } from '../../shared/lib/hooks/useLocalStorage';
 import SortFromFeature from '../../features/SortFromFeature/SortFromFeature';
 import TypeFilters from '../../features/TypeFilters/TypeFilters';
 import './styles/catalogWidget.css'
 import getAllProducts from '../../shared/api/getAllProducts';
+import ProductCart from '../../entities/ProductCart/ProductCart';
 
 const CatalogWidget = () => {
     const [products, setProducts] = useLocalStorage([], 'products');
@@ -41,10 +42,15 @@ const CatalogWidget = () => {
                 <div className='products-block'>
                     {products.map((item: any) => {
                         return (
-                            <div key={item.id} className="">
-                                <h2>{item.title}</h2>
-                                <h2>{item.cost}</h2>
-                            </div>
+                            <ProductCart 
+                                title={item.title}
+                                description={item.description}
+                                cost={item.cost}
+                                img={item.photo}
+                                closeComponent 
+                                preferBtn
+                                secondaryBlock
+                            />
                         )
                     })}
                 </div>

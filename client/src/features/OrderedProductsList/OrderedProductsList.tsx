@@ -4,6 +4,7 @@ import getChoosedProdcuts from './api/getChoosedProducts';
 import ProductCart from '../../entities/ProductCart/ProductCart';
 import DeleteFromChoosed from '../DeleteFromChoosed/DeleteFromChoosed';
 import { useLocalStorage } from '../../shared/lib/hooks/useLocalStorage';
+import ProductCounter from '../ProductCounter/ProductCounter';
 
 export const orderListContext = createContext<{orderedProducts: any, setOrderedProducts: any} | undefined>(undefined);
 
@@ -13,10 +14,14 @@ const OrderedProductsList = () => {
     
     useEffect(() => {
         if (localStorage.ordered) {
-            getChoosedProdcuts(JSON.parse(localStorage.ordered))
-            .then(data => stChoosedProducts(JSON.parse(data.products)));
+            try {
+                getChoosedProdcuts(JSON.parse(localStorage.ordered))
+                .then(data => stChoosedProducts(JSON.parse(data.products)));
+            } catch (err) {
+                console.error(err);
+            }
         }
-    }, [localStorage.ordered])
+    }, [])
 
     return (
         <orderListContext.Provider value={{
@@ -24,8 +29,14 @@ const OrderedProductsList = () => {
             setOrderedProducts: setOrderedProducts
             }}>
             <div className='ordered-block'>
-                {choosedProducts.map((product: any) => {
-                    if(orderedProducts.some((obj: any) => obj.id === product.id)) {
+                {choosedProducts && choosedProducts.map((product: any) => {
+                    let count = 1;
+                    if(orderedProducts.some((item: any) => {
+                        if (item.id === product.id) {
+                            count = item.count
+                            return true
+                        }
+                    })) {
                         return (
                             <ProductCart key={product.id}
                             title={product.title}
@@ -34,7 +45,7 @@ const OrderedProductsList = () => {
                             img={product.photo}
                             closeComponent={<DeleteFromChoosed id={product.id} />}
                             preferBtn
-                            secondaryBlock
+                            secondaryBlock={<ProductCounter id={product.id} count={count} />}
                         />
                         )
                     }

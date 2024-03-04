@@ -51,7 +51,7 @@ const CatalogWidget = () => {
                                 img={item.photo}
                                 closeComponent 
                                 preferBtn
-                                secondaryBlock={<AddToOrderBtn id={item.id}/>}
+                                secondaryBlock={<AddToOrderBtn id={item.id} cost={item.cost} />}
                             />
                         )
                     })}

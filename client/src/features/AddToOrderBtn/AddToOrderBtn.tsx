@@ -2,7 +2,7 @@ import React from 'react';
 import './styles/addToOrder.css'
 import { useLocalStorage } from '../../shared/lib/hooks/useLocalStorage';
 
-const AddToOrderBtn = ({id}: {id: number}) => {
+const AddToOrderBtn = ({id, cost}: {id: number, cost: number}) => {
     const [ordered, setOrdered] = useLocalStorage([], 'ordered');
 
     let added = ordered.some((product: any) => product.id === id)
@@ -10,7 +10,7 @@ const AddToOrderBtn = ({id}: {id: number}) => {
     function addToOrdered(event: React.MouseEvent<HTMLButtonElement>) {
         if (!event.currentTarget.classList.contains('added')) {
             const arr = localStorage.ordered ? JSON.parse(localStorage.ordered) : []
-            arr.push({"id": id, "count": 1})
+            arr.push({"id": id, "count": 1, "cost": cost})
             event?.currentTarget.classList.add('added')
             setOrdered(arr);
         }

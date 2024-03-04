@@ -10,13 +10,13 @@ const ProductCounter = ({count, id}: {count: number, id: number}) => {
             const result = prev.map((item: any) => {
                 if(event.target.innerText === '-') {
                     if (item.id === id) {
-                        return {id: id, ["count"]: item.count !== 1 ? item.count-- : 1}
+                        return {id: id, ["count"]: item.count !== 1 ? item.count-- : 1, ["cost"]: item.cost}
                     } else {
                         return item
                     }
                 } else {
                     if (item.id === id) {
-                        return {id: id, ["count"]: item.count++}
+                        return {id: id, ["count"]: item.count++, ["cost"]: item.cost}
                     } else {
                         return item
                     }

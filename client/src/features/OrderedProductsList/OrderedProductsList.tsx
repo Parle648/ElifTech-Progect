@@ -11,7 +11,10 @@ export const orderListContext = createContext<{orderedProducts: any, setOrderedP
 const OrderedProductsList = () => {
     const [choosedProducts, stChoosedProducts] = useState([]);
     const [orderedProducts, setOrderedProducts] = useLocalStorage([] ,'ordered');
+
+    console.log(orderedProducts);
     
+
     useEffect(() => {
         if (localStorage.ordered) {
             try {
@@ -28,28 +31,31 @@ const OrderedProductsList = () => {
             orderedProducts: orderedProducts,
             setOrderedProducts: setOrderedProducts
             }}>
-            <div className='ordered-block'>
-                {choosedProducts && choosedProducts.map((product: any) => {
-                    let count = 1;
-                    if(orderedProducts.some((item: any) => {
-                        if (item.id === product.id) {
-                            count = item.count
-                            return true
+            <div className='ordered-container'>
+                <div className='ordered-block'>
+                    {choosedProducts && choosedProducts.map((product: any) => {
+                        let count = 1;
+                        if(orderedProducts.some((item: any) => {
+                            if (item.id === product.id) {
+                                count = item.count
+                                return true
+                            }
+                        })) {
+                            return (
+                                <ProductCart key={product.id}
+                                title={product.title}
+                                description={product.description}
+                                cost={product.cost}
+                                img={product.photo}
+                                closeComponent={<DeleteFromChoosed id={product.id} />}
+                                preferBtn
+                                secondaryBlock={<ProductCounter id={product.id} count={count} />}
+                            />
+                            )
                         }
-                    })) {
-                        return (
-                            <ProductCart key={product.id}
-                            title={product.title}
-                            description={product.description}
-                            cost={product.cost}
-                            img={product.photo}
-                            closeComponent={<DeleteFromChoosed id={product.id} />}
-                            preferBtn
-                            secondaryBlock={<ProductCounter id={product.id} count={count} />}
-                        />
-                        )
-                    }
-                })}
+                    })}
+                </div>
+                <span>Загальна вартiсть - {orderedProducts.reduce((amount: any, item: any) => amount + (item.cost * item.count), 0)} ₴ </span>
             </div>
         </orderListContext.Provider>
     );

@@ -1,3 +1,8 @@
+.ordered-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .ordered-block {
     width: 530px;
     height: 550px;

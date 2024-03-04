@@ -66,7 +66,7 @@ const OrderForm = () => {
             type="text" />
             {errors.adress?.message && <h2 className='error-ttl'>{errors.adress.message}</h2>}
 
-            <button type='submit'></button>
+            <button className='submit' type='submit'>Зробити замовлення</button>
         </form>
     );
 };

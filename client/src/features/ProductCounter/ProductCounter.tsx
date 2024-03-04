@@ -27,7 +27,7 @@ const ProductCounter = ({count, id}: {count: number, id: number}) => {
     }
 
     return (
-        <div>
+        <div className='counter'>
             <button onClick={updateOrderedProducts}>-</button>
             {count}
             <button onClick={updateOrderedProducts}>+</button>

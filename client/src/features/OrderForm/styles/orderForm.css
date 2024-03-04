@@ -1,6 +1,6 @@
 .order-form {
     width: 500px;
-    height: 800px;
+    height: 700px;
     padding: 24px;
     background-color: aqua;
 }
@@ -22,4 +22,12 @@
 .error-ttl {
     font-size: 16px;
     color: red;
+}
+
+.submit {
+    padding: 12px;
+    border: 0;
+    border-radius: 4px;
+    margin-top: 10px;
+    cursor: pointer;
 }

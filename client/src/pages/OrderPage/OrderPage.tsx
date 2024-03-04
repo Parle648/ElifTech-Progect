@@ -1,10 +1,11 @@
 import React from 'react';
 import OrderForm from '../../features/OrderForm/OrderForm';
 import OrderedProductsList from '../../features/OrderedProductsList/OrderedProductsList';
+import './styles/orderedPage.css'
 
 const OrderPage = () => {
     return (
-        <div>
+        <div className='ordered-page'>
             <OrderForm />
             <OrderedProductsList />
         </div>

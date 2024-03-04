@@ -1,0 +1,5 @@
+.ordered-block {
+    width: 500px;
+    height: 550px;
+    overflow: scroll;
+}

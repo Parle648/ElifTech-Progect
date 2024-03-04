@@ -3,12 +3,15 @@ const { Pool } = require('pg');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}))
+const cors = require('cors')
 
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+app.use(cors())
 
 const pool = new Pool({
   user: 'moral503',
@@ -144,14 +147,10 @@ app.get('/api/getproducts/filters/', async (req, res) => {
 
 app.post('/api/mail', async (req, res) => {
   try {
-    const {mail, agree} = req.body;
+    const {adress, email, name, phone_number, products, total_price} = req.body;
 
-    const query = {
-      text: 'INSERT INTO Products (mail, treatment_data) VALUES ($1, $2)',
-      values: [mail, agree],
-    };
-    await pool.query(`INSERT INTO world_bike_mail_letters (email, agree) VALUES ('${mail}', ${agree})`);
-    res.status(201).json({ message: 'Product created successfully' });
+    await pool.query(`INSERT INTO medicine_orders (adress, email, "name", phone_number, products, total_price) VALUES ('${adress}', '${email}', '${name}', '${phone_number}', '${products}', ${total_price})`);
+    res.status(201).json({ message: true });
 
   } catch (error) {
     res.status(500).json({ error: error.message });

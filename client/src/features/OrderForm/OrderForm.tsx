@@ -1,6 +1,8 @@
 import React from 'react';
 import './styles/orderForm.css';
 import { useForm } from 'react-hook-form';
+import sendOrder from './api/sendOrder';
+import { useLocalStorage } from '../../shared/lib/hooks/useLocalStorage';
 
 const OrderForm = () => {
     const { 
@@ -8,11 +10,27 @@ const OrderForm = () => {
         handleSubmit,
         formState: {
           errors
-        }
-      } = useForm<{name: string, email: string, phone_number: string, adress: string}>();
-    
+        },
+        reset
+    } = useForm<{name: string, email: string, phone_number: string, adress: string}>();
+
+    const [order, setOrder] = useLocalStorage([], 'ordered')
+    const [orderCost, setOrderCost] = useLocalStorage([], 'orderCost')
+
       function submitData(data: any) {
-        console.log(data);
+        sendOrder({
+            ...data,
+            ["products"]: JSON.stringify(localStorage.ordered),
+            ["total_price"]: JSON.parse(localStorage.orderCost)
+        }).then((data) => {
+            if (data.message) {
+                setOrder([])
+                setOrderCost(0)
+                reset();
+                alert('Ваше замовлення успiшно прийнято');
+                window.location.href = 'http://localhost:3000/'
+            }
+        })
       }
 
     return (

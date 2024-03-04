@@ -12,6 +12,7 @@ export const orderListContext = createContext<{orderedProducts: any, setOrderedP
 const OrderedProductsList = () => {
     const [choosedProducts, stChoosedProducts] = useState([]);
     const [orderedProducts, setOrderedProducts] = useLocalStorage([] ,'ordered');
+    const [orderCost, setOrderCost] = useLocalStorage(0 ,'orderCost');
     const [discount ,setDiscount] = useState(undefined)
 
     useEffect(() => {
@@ -23,11 +24,14 @@ const OrderedProductsList = () => {
                 console.error(err);
             }
         }
+        setOrderCost(orderedProducts.reduce((amount: any, item: any) => amount + (item.cost * item.count), 0) * (!discount ? 1 : discount))
     }, [])
-    // setDiscount(!data ? JSON.parse(data["products"])[0].discount : undefined)
 
     function isCpouponeExist(event: any) {
-        isCouponeExist(event.target.value).then((data: any) => setDiscount((data.products === undefined ) ? undefined : JSON.parse(data["products"])[0].discount))
+        isCouponeExist(event.target.value).then((data: any) => {
+            setDiscount((data.products === undefined ) ? undefined : JSON.parse(data["products"])[0].discount)
+            setOrderCost((data.products === undefined ) ? undefined : orderedProducts.reduce((amount: any, item: any) => amount + (item.cost * item.count), 0) * JSON.parse(data["products"])[0].discount)
+        })
     }
 
     return (
@@ -60,9 +64,10 @@ const OrderedProductsList = () => {
                     })}
                 </div>
                 <span>Загальна вартiсть без знижки - {orderedProducts.reduce((amount: any, item: any) => amount + (item.cost * item.count), 0)} ₴ </span>
-                <input style={{display: 'block'}} type="text" onBlur={isCpouponeExist} />
-                {discount &&
-                    <span>Загальна вартiсть з урахуванням знижки - {orderedProducts.reduce((amount: any, item: any) => amount + (item.cost * item.count), 0) * discount} ₴ </span>
+                <input placeholder='введiть купон' style={{display: 'block'}} type="text" onBlur={isCpouponeExist} />
+                {discount ?
+                    <span>Загальна вартiсть з урахуванням знижки - {orderedProducts.reduce((amount: any, item: any) => amount + (item.cost * item.count), 0) * discount} ₴ </span> :
+                    <span>Купон не введений або такого купона не iснуе</span>
                 }
             </div>
         </orderListContext.Provider>

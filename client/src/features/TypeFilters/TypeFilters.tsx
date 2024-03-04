@@ -1,8 +1,6 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import './styles/typeFilters.css'
 import { CatalogContext } from '../../widgets/CatalogWidget/model/context/catalogContext';
-import getAllProducts from '../../shared/api/getAllProducts';
-import getByFilters from '../../shared/api/getByFilters';
 import getProducts from '../../widgets/CatalogWidget/model/getProducts';
 import Spinner from '../../shared/UI/Spinner/Spinner';
 
@@ -30,9 +28,6 @@ const TypeFilters = () => {
         })
     }
 
-    console.log(catalogData?.filters.types.some(item => item === 'bad'));
-    
-    
     return (
         <div className='type-filter-block'>
             <Spinner disabled={spinnerDisabled} />

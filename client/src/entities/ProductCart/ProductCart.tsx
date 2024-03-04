@@ -31,8 +31,6 @@ const ProductCart = ({
     preferBtn, 
     secondaryBlock
     }: ProductCartProps) => {
-        console.log(img);
-        
     return (
         <div className='product-cart'>
             <img className='product-img' src={images[img]} alt="" />

@@ -1,0 +1,8 @@
+.copones-list {
+    width: 1010px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}

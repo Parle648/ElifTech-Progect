@@ -1,17 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import './styles/typeFilters.css'
 import { CatalogContext } from '../../widgets/CatalogWidget/model/context/catalogContext';
 import getAllProducts from '../../shared/api/getAllProducts';
 import getByFilters from '../../shared/api/getByFilters';
 import getProducts from '../../widgets/CatalogWidget/model/getProducts';
+import Spinner from '../../shared/UI/Spinner/Spinner';
 
 const TypeFilters = () => {
     const catalogData = useContext(CatalogContext);
-
-    // getAllProducts().then((data: any) => console.log(data))
-    // getByFilters('sortby=from-new&types=["bad", "mazi"]&prefered=[3, 14]').then(data => console.log(data))
+    const [spinnerDisabled, setSpinnerDisabled] = useState<boolean>(true);
 
     function changeFilters(event: any) {
+        setSpinnerDisabled(!spinnerDisabled);
         const value = event.target.value ? event.target.value : '';
         const newFilters = {
             ...catalogData?.filters,
@@ -23,7 +23,11 @@ const TypeFilters = () => {
                 ["types"]: event.target.checked ? prev?.types.concat(value) : prev?.types.filter((item: string) => item !== value)
             })
         });
-        getProducts(newFilters).then((data: any) => catalogData?.setProducts(JSON.parse(data.products)))
+        getProducts(newFilters)
+        .then((data: any) => {
+            catalogData?.setProducts(JSON.parse(data.products))
+            setSpinnerDisabled(prev => !prev);
+        })
     }
 
     console.log(catalogData?.filters.types.some(item => item === 'bad'));
@@ -31,6 +35,7 @@ const TypeFilters = () => {
     
     return (
         <div className='type-filter-block'>
+            <Spinner disabled={spinnerDisabled} />
             <label className='label'>
                 <input onChange={changeFilters} type="checkbox" checked={catalogData?.filters.types.some(item => item === 'bad')} name='type' value='bad'  />
                 <div className="fake-checkbox"></div>

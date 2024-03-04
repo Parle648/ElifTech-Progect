@@ -7,6 +7,7 @@ import './styles/catalogWidget.css'
 import getAllProducts from '../../shared/api/getAllProducts';
 import ProductCart from '../../entities/ProductCart/ProductCart';
 import AddToOrderBtn from '../../features/AddToOrderBtn/AddToOrderBtn';
+import Spinner from '../../shared/UI/Spinner/Spinner';
 
 const CatalogWidget = () => {
     const [products, setProducts] = useLocalStorage([], 'products');

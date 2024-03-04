@@ -2,15 +2,17 @@ import React, { useContext, useState } from 'react';
 import './styles/sortFromFeature.css';
 import { CatalogContext } from '../../widgets/CatalogWidget/model/context/catalogContext';
 import getProducts from '../../widgets/CatalogWidget/model/getProducts';
+import Spinner from '../../shared/UI/Spinner/Spinner';
 
 const SortFromFeature = () => {
     const contextData = useContext(CatalogContext);
 
     const [sortBy, setSortBy] = useState<string[]>(['нiчого не обрано', 'спочатку дорогi', 'спочатку дешевi', 'спочатку новi', 'спочатку старi']);
-
+    const [spinnerDisabled, setSpinnerDisabled] = useState<boolean>(true);
     const catalogData = useContext(CatalogContext);
 
     function chooseFilter(event: React.MouseEvent<HTMLButtonElement>) {
+        setSpinnerDisabled(!spinnerDisabled);
         const number = event.currentTarget.dataset.number ? +event.currentTarget.dataset.number : 0;
         const header = sortBy[0];
         const body = sortBy[number];
@@ -21,7 +23,7 @@ const SortFromFeature = () => {
         };
         catalogData?.setFilters((prev: any) => newFilters);
 
-        getProducts(newFilters).then((data: any) => contextData?.setProducts(JSON.parse(data.products)))
+        getProducts(newFilters).then((data: any) => contextData?.setProducts(JSON.parse(data.products))).then(() => setSpinnerDisabled(prev => !prev))
 
         setSortBy((prev: string[]) => [...prev, prev[0] = body, prev[+number] = header])
     }
@@ -34,6 +36,7 @@ const SortFromFeature = () => {
 
     return (
         <div className='sort-by-block'>
+            <Spinner disabled={spinnerDisabled} />
             <button className="header-block" onClick={bodyToggle}>
                 {sortBy[0]}
             </button>

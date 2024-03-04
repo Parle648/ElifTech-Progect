@@ -1,0 +1,25 @@
+.order-form {
+    width: 500px;
+    height: 800px;
+    padding: 24px;
+    background-color: aqua;
+}
+
+.order-form-input {
+    width: 90%;
+    height: 58px;
+    padding: 12px;
+    border-radius: 5px;
+    outline: none;
+    background-color: #fff;
+    color: #101010;
+    display: block;
+
+    border: 0;
+    margin-top: 35px;
+}
+
+.error-ttl {
+    font-size: 16px;
+    color: red;
+}

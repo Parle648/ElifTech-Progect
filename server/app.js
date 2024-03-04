@@ -50,6 +50,17 @@ app.get('/api/all-products', async (req, res) => {
   }
 });
 
+app.get('/api/choosed-products', async (req, res) => {
+  try {
+    const {choosed} = req.query;
+
+    const result = await (await pool.query(`SELECT * FROM medicine_drugs WHERE id IN (${JSON.parse(choosed).join(', ')})`)).rows
+    return res.status(200).json({ products: JSON.stringify(result) });
+  } catch (error) {
+    return res.status(500).json({ result: `${error}` });
+  }
+});
+
 app.get('/api/all-coupones', async (req, res) => {
   try {
     const result = await (await pool.query(`SELECT * FROM medicine_coupones`)).rows

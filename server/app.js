@@ -74,7 +74,7 @@ app.get('/api/get-specific-coupone/:coupone', async (req, res) => {
   try {
     const {coupone} = req.params;
     const result = await (await pool.query(`SELECT * FROM medicine_coupones WHERE coupon='${coupone.slice(1)}'`)).rows
-    return res.status(200).json({ products: JSON.stringify(result.length > 0 ? result : false) });
+    return res.status(200).json({ products: JSON.stringify(result.length > 0 ? result : undefined) });
   } catch (error) {
     return res.status(500).json({ result: `${error}` });
   }

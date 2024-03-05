@@ -33,7 +33,7 @@ const OrderedProductsList = () => {
                 setDisabled(true)
             }
         }
-        setOrderCost(orderedProducts.reduce((amount: any, item: any) => amount + (item.cost * item.count), 0) * (!discount ? 1 : discount))
+        setOrderCost(orderedProducts.reduce((amount: any, item: any) => amount + (item.cost * item.count), 0) * (!!!discount ? 1 : discount))
     }, [])
 
     function isCpouponeExist(event: any) {

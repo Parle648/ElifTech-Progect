@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import sendOrder from './api/sendOrder';
 import { useLocalStorage } from '../../shared/lib/hooks/useLocalStorage';
 import Spinner from '../../shared/UI/Spinner/Spinner';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const OrderForm = () => {
     const { 
@@ -41,9 +42,14 @@ const OrderForm = () => {
         })
       }
 
+      function onChange(value: any) {
+        console.log("Captcha value:", value);
+      }
+
     return (
         <form className='order-form' onSubmit={handleSubmit(submitData)}>
             <Spinner disabled={disabled} />
+            <iframe className='map' src="https://www.google.com/maps/embed?pb=!1m22!1m12!1m3!1d82345.00325540337!2d23.95343836730957!3d49.837170795155174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m7!3e6!4m0!4m4!2s49.837230%2C%2024.035886!3m2!1d49.83723!2d24.035885999999998!5e0!3m2!1suk!2sua!4v1709615554804!5m2!1suk!2sua" width="600" height="450" style={{border: "0"}} loading="lazy" ></iframe>
             <input className='order-form-input' 
             {...register("name", {
                 required: 'Enter your name',
@@ -92,6 +98,11 @@ const OrderForm = () => {
             })} 
             type="text" />
             {errors.adress?.message && <h2 className='error-ttl'>{errors.adress.message}</h2>}
+            
+            <ReCAPTCHA
+              sitekey="6LdDWoopAAAAADh6yx683y5XAIhLYG4osyg2s0QL"
+              onChange={onChange}
+            />
 
             <button className='submit' type='submit'>Зробити замовлення</button>
         </form>

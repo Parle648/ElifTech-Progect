@@ -13,7 +13,7 @@ const CouponesList = () => {
         <div className='copones-list'>
             {coupones && coupones.map((coupone: any) => {
                 return (
-                    <CouponeCart coupone={coupone.coupon} off={coupone.discount} />
+                    <CouponeCart key={coupone.coupon} coupone={coupone.coupon} off={coupone.discount} />
                 )
             })}
         </div>

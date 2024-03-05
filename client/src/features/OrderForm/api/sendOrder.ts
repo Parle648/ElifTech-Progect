@@ -1,7 +1,9 @@
+import { host } from "../../../shared/constants/host"
+
 export default function sendOrder(data: any) {
     return new Promise((resolve, reject) => {
         try {
-            resolve(fetch('http://localhost:3001/api/mail/', {
+            resolve(fetch(`${host}/api/mail/`, {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json'

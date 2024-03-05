@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { CatalogContext } from './model/context/catalogContext';
 import { useLocalStorage } from '../../shared/lib/hooks/useLocalStorage';
 import SortFromFeature from '../../features/SortFromFeature/SortFromFeature';
@@ -11,10 +11,15 @@ import Spinner from '../../shared/UI/Spinner/Spinner';
 
 const CatalogWidget = () => {
     const [products, setProducts] = useLocalStorage([], 'products');
+    const [disabled, setDisabled] = useState<boolean>(true);
 
     useEffect(() => {
         if (products.length === 0) {
-            getAllProducts().then((data: any) => setProducts(JSON.parse(data.products)))
+            setDisabled(false)
+            getAllProducts().then((data: any) => {
+                setProducts(JSON.parse(data.products))
+                setDisabled(true)
+            })
         }
     }, [])
 
@@ -24,22 +29,18 @@ const CatalogWidget = () => {
         prefered: []
     }, 'drugs-filters');
 
-    function initProducts(event: any) {
-        console.log(event.target);
-    }
-
     return (
         <CatalogContext.Provider value={{
             filters: filters,
             setFilters: setFilters,
             products: products,
             setProducts: setProducts, 
-            initProduct: initProducts,
         }}>
            <div className='catalog-main'>
                 <div>
                     <SortFromFeature />
                     <TypeFilters />
+                    <Spinner disabled={disabled} />
                 </div>
                 <div className='products-block'>
                     {products.map((item: any) => {

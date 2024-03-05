@@ -5,6 +5,7 @@ import sendOrder from './api/sendOrder';
 import { useLocalStorage } from '../../shared/lib/hooks/useLocalStorage';
 import Spinner from '../../shared/UI/Spinner/Spinner';
 import ReCAPTCHA from "react-google-recaptcha";
+import { FormFields } from './types/formProps';
 
 const OrderForm = () => {
     const { 
@@ -14,7 +15,7 @@ const OrderForm = () => {
           errors
         },
         reset
-    } = useForm<{name: string, email: string, phone_number: string, adress: string}>();
+    } = useForm<FormFields>();
 
     const [order, setOrder] = useLocalStorage([], 'ordered')
     const [orderCost, setOrderCost] = useLocalStorage([], 'orderCost')
@@ -34,7 +35,7 @@ const OrderForm = () => {
                 reset();
                 setDisabled(true)
                 alert('Ваше замовлення успiшно прийнято');
-                window.location.href = 'http://localhost:3000/'
+                window.location.href = 'https://elif-client.onrender.com/'
             } else {
                 setDisabled(true)
                 alert('Напевно щось пышло не так(');

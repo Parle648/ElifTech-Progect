@@ -113,36 +113,6 @@ app.get('/api/get-by-filters/', async (req, res) => {
   }
 });
 
-app.get('/api/getproducts/filters/', async (req, res) => {
-  try {
-    const {filters, currentPage} = req.query;
-    const {has, categories, cost, brands, frame_materials} = JSON.parse(filters);
-
-    const categoriesString = categories.length > 0 ? categories.map(str => `'${str}'`).join(', ') : "'triatlon', 'twise_suspension', 'bmx', 'single_suspension', 'single_speed', 'gravy', 'mountain', 'city', 'road_bike'"
-    const brandsString = brands.length > 0 ? brands.map(str => `'${str}'`).join(', ') : "'look', 'trek', 'orbea', 'black','scott'"
-    const frameMaterialsString = frame_materials.length > 0 ? frame_materials.map(str => `'${str}'`).join(', ') : "'Aluminium', 'Carbon Fiber', 'Steel', 'Titanium'"
-    const hasString = has ? `AND world_bike_product.in_stock=${!has}` : ''
-
-    const result = await (await pool.query(`
-      SELECT * FROM world_bike_product
-      JOIN world_bike_type ON world_bike_product.id = world_bike_type.prodct_id
-      JOIN world_bike_brand ON world_bike_product.id = world_bike_brand.prodct_id
-      JOIN world_bike_properties ON world_bike_product.id = world_bike_properties.prodct_id
-      WHERE world_bike_type.byke_type IN (${categoriesString})
-      ${hasString}
-      AND world_bike_product.cost >= ${cost.from}
-      AND world_bike_product.cost <= ${cost.to}
-      AND world_bike_brand.brand_name IN(${brandsString})
-      AND world_bike_properties.frame_material IN(${frameMaterialsString})
-      `)).rows;
-
-
-    res.status(201).json({ pagesCount: Math.round(result.length / 9), data: JSON.stringify(result.filter((item, index) => index <= +currentPage*10-1 && index >= +currentPage*10-10))});
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
 // post requests
 
 app.post('/api/mail', async (req, res) => {

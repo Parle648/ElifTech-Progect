@@ -1,8 +1,9 @@
 import React from 'react';
 import './styles/addToOrder.css'
 import { useLocalStorage } from '../../shared/lib/hooks/useLocalStorage';
+import { AddToOrderProps } from './types/addToOrderProps';
 
-const AddToOrderBtn = ({id, cost}: {id: number, cost: number}) => {
+const AddToOrderBtn = ({id, cost}: AddToOrderProps) => {
     const [ordered, setOrdered] = useLocalStorage([], 'ordered');
 
     let added = ordered.some((product: any) => product.id === id)

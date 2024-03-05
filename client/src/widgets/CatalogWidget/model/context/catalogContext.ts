@@ -7,7 +7,6 @@ export const CatalogContext = createContext<{
         prefered: []
     },
     products: [],
-    initProduct: any,
     setFilters: any,
     setProducts: any, 
 } | undefined>(undefined);

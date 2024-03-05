@@ -1,7 +1,9 @@
+import { host } from "../../../shared/constants/host";
+
 export default function getAllCoupones() {
     return new Promise((resolve, reject) => {
         try {
-            resolve(fetch('http://localhost:3001/api/all-coupones'))
+            resolve(fetch(`${host}/api/all-coupones`))
         } catch (err) {
             reject(console.error(err))
         }

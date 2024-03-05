@@ -48,7 +48,7 @@ const OrderedProductsList = () => {
     return (
         <orderListContext.Provider value={{
             orderedProducts: orderedProducts,
-            setOrderedProducts: setOrderedProducts
+            setOrderedProducts: setOrderedProducts,
             }}>
             <div className='ordered-container'>
                 <Spinner disabled={disabled} />

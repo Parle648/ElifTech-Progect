@@ -1,7 +1,9 @@
+import { host } from "../constants/host";
+
 export default function getAllProducts() {
     return new Promise((resolve, reject) => {
         try {
-            resolve(fetch('http://localhost:3001/api/all-products'))
+            resolve(fetch(`${host}/api/all-products`))
         } catch (error) {
             reject(console.error(error));
         }

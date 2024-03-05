@@ -1,9 +1,8 @@
-import { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import './styles/productsCounter.css';
 import { orderListContext } from '../OrderedProductsList/OrderedProductsList';
-import { CounterPropsType } from './types/counterProps';
 
-const ProductCounter = ({count, id}: CounterPropsType) => {
+const ProductCounter = ({count, id}: {count: number, id: number}) => {
     const contextData = useContext(orderListContext);
 
     function updateOrderedProducts(event: any) {

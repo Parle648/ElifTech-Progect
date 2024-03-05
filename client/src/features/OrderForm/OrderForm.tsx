@@ -6,6 +6,7 @@ import { useLocalStorage } from '../../shared/lib/hooks/useLocalStorage';
 import Spinner from '../../shared/UI/Spinner/Spinner';
 import ReCAPTCHA from "react-google-recaptcha";
 import { FormFields } from './types/formProps';
+import { clientHost } from '../../shared/constants/host';
 
 const OrderForm = () => {
     const { 
@@ -35,7 +36,7 @@ const OrderForm = () => {
                 reset();
                 setDisabled(true)
                 alert('Ваше замовлення успiшно прийнято');
-                window.location.href = 'https://elif-client.onrender.com/'
+                window.location.href = `${clientHost}`
             } else {
                 setDisabled(true)
                 alert('Напевно щось пышло не так(');
